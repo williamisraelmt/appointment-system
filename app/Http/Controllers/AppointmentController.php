@@ -24,7 +24,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-
+        return view('modules.appointment');
     }
 
     /**

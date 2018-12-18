@@ -23,3 +23,16 @@ Route::group(['prefix' => 'appointments'], function(){
     Route::get('next-possible-appointment', 'AppointmentController@getNextCustomerPossibleSchedules');
 
 });
+
+Route::group(['prefix' => 'speciality'], function(){
+
+    Route::get('', 'SpecialityController@getAll');
+
+});
+
+Route::group(['prefix' => 'doctor'], function(){
+
+    Route::get('', 'DoctorController@getAll');
+
+});
+

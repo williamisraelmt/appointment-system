@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $customer_id
  * @property int $doctor_id
+ * @property string|null $status
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Appointment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Appointment whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Appointment whereDoctorId($value)
@@ -30,7 +31,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Appointment whereScheduledDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Appointment whereStartTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Appointment whereUpdatedAt($value)
- * @property string|null $status
  * @property-read \App\Models\Customer $customer
  * @property-read \App\Models\Appointment $doctor
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Appointment whereStatus($value)

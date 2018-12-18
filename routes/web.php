@@ -17,11 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['prefix' => 'appointment'], function(){
 
-Route::group(['prefix' => 'appointments'], function(){
-
-    Route::get('/appointments', 'AppointmentController@index');
-    Route::get('/appointments/next-possible-appointment', 'AppointmentController@getNextCustomerPossibleSchedules');
+    Route::get('', 'AppointmentController@index');
 
 });
 

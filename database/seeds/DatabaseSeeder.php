@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
 
                  AppointmentTableSeeder::class,
 
-                 HolidayTableSeeder::class
+                 HolidayTableSeeder::class,
+                 UserTableSeeder::class
              ]
          );
     }
