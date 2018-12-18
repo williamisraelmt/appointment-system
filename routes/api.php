@@ -21,6 +21,7 @@ Route::group(['prefix' => 'appointments'], function(){
 
     Route::get('', 'AppointmentController@getAll');
     Route::get('next-possible-appointment', 'AppointmentController@getNextCustomerPossibleSchedules');
+    Route::get('available-schedules', 'AppointmentController@getAvailableSchedules');
 
 });
 

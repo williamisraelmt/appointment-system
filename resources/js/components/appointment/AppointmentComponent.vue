@@ -35,8 +35,9 @@
 
 <script>
 
-    import DateRangePicker from '../date-range-picker/DateRangePicker'
-    import Multiselect from 'vue-multiselect'
+    import DateRangePicker from '../date-range-picker/DateRangePicker';
+    import Multiselect from 'vue-multiselect';
+    import { FullCalendar } from 'vue-full-calendar'
 
     const appointmentModel = {
         id: null,
@@ -54,7 +55,8 @@
         name: "AppointmentComponent",
         components: {
             DateRangePicker,
-            Multiselect
+            Multiselect,
+            FullCalendar
         },
         data: function () {
             return {
@@ -66,7 +68,8 @@
                 selectedSpecialities: [],
                 doctorSpecialities: [],
                 selectedDoctors: [],
-                doctors: []
+                doctors: [],
+                availableSchedules: []
             }
         },
         mounted() {
@@ -95,6 +98,16 @@
                 )
             },
             getAvailableSchedules() {
+
+                axios.get('/api/available-schedules').then(
+                    (response) => {
+                        console.log(response.data);
+                        this.availableSchedules = response.data;
+                    },
+                    (error) => {
+
+                    }
+                )
 
             },
             onSaveClick() {
