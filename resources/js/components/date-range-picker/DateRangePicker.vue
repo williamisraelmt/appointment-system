@@ -52,7 +52,7 @@
         <div class="form-group">
           <select class="custom-select form-control-sm" :class="compare ? 'daterangepicker-range-border compare' : ''" v-model="rangeSelectCompare">
             <option v-for="(range, rangeKey) in ranges" :key="rangeKey" :value="rangeKey">{{ range.label }}</option>
-            <option value="custom">Custom range</option>
+            <option value="custom">Rango personalizado</option>
           </select>
         </div>
         <div class="form-group form-inline flex-nowrap">

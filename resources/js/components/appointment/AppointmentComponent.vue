@@ -13,7 +13,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>Especialidades</label>
-                            <multiselect v-model="selectedSpecialities" :options="doctorSpecialities" label="name" v-bind:multiple="true"></multiselect>
+                            <multiselect v-model="selectedDoctorSpecialities" :options="doctorSpecialities" label="name" v-bind:multiple="true"></multiselect>
                         </div>
                     </div>
                     <div class="col-6">
@@ -24,7 +24,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 p-0">
+
+
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap">
+                        <thead>
+                        <tr>
+                            <th class="w-1">No.</th>
+                            <th>Nombre</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>
@@ -65,16 +82,22 @@
                 displayAlert: false,
                 alertType: false,
                 showWarehouseModal: false,
-                selectedSpecialities: [],
                 doctorSpecialities: [],
-                selectedDoctors: [],
                 doctors: [],
-                availableSchedules: []
+                availableSchedules: [],
+                selectedDoctorSpecialities: [],
+                selectedDoctors: [],
+                selectedDateRange: []
             }
         },
         mounted() {
             this.getSpecialities();
             this.getDoctors();
+        },
+        watch: {
+            selectedSpecialities: function(){
+                this.getAvailableSchedules();
+            }
         },
         methods: {
             getSpecialities(){
@@ -99,7 +122,15 @@
             },
             getAvailableSchedules() {
 
-                axios.get('/api/available-schedules').then(
+                let params = '?';
+                let dates = [this.selectedDateRange.startDate.format('YYYY-MM-DD'), this.selectedDateRange.endDate.format('YYYY-MM-DD')];
+                params += `doctors=${JSON.stringify(this.selectedDoctors)}`;
+                params += `&specialities=${JSON.stringify(this.selectedDoctorSpecialities)}`;
+                params += `&appointment_dates=[${JSON.stringify(dates)}]`;
+
+                console.log(params);
+
+                axios.get(`/api/appointments/available-schedules${params}`).then(
                     (response) => {
                         console.log(response.data);
                         this.availableSchedules = response.data;
@@ -110,11 +141,10 @@
                 )
 
             },
-            onSaveClick() {
-
-            },
+            onSaveClick() {},
             updateRanges: function (range) {
-                console.log(range);
+                this.selectedDateRange = Object.assign({}, range);
+                this.getAvailableSchedules();
             }
         }
     }

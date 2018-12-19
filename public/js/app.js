@@ -67275,6 +67275,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -67307,11 +67324,12 @@ var appointmentModel = {
             displayAlert: false,
             alertType: false,
             showWarehouseModal: false,
-            selectedSpecialities: [],
             doctorSpecialities: [],
-            selectedDoctors: [],
             doctors: [],
-            availableSchedules: []
+            availableSchedules: [],
+            selectedDoctorSpecialities: [],
+            selectedDoctors: [],
+            selectedDateRange: []
         };
     },
     mounted: function mounted() {
@@ -67319,6 +67337,11 @@ var appointmentModel = {
         this.getDoctors();
     },
 
+    watch: {
+        selectedSpecialities: function selectedSpecialities() {
+            this.getAvailableSchedules();
+        }
+    },
     methods: {
         getSpecialities: function getSpecialities() {
             var _this = this;
@@ -67337,7 +67360,15 @@ var appointmentModel = {
         getAvailableSchedules: function getAvailableSchedules() {
             var _this3 = this;
 
-            axios.get('/api/available-schedules').then(function (response) {
+            var params = '?';
+            var dates = [this.selectedDateRange.startDate.format('YYYY-MM-DD'), this.selectedDateRange.endDate.format('YYYY-MM-DD')];
+            params += 'doctors=' + JSON.stringify(this.selectedDoctors);
+            params += '&specialities=' + JSON.stringify(this.selectedDoctorSpecialities);
+            params += '&appointment_dates=[' + JSON.stringify(dates) + ']';
+
+            console.log(params);
+
+            axios.get('/api/appointments/available-schedules' + params).then(function (response) {
                 console.log(response.data);
                 _this3.availableSchedules = response.data;
             }, function (error) {});
@@ -67345,7 +67376,8 @@ var appointmentModel = {
         onSaveClick: function onSaveClick() {},
 
         updateRanges: function updateRanges(range) {
-            console.log(range);
+            this.selectedDateRange = Object.assign({}, range);
+            this.getAvailableSchedules();
         }
     }
 });
@@ -68785,7 +68817,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("option", { attrs: { value: "custom" } }, [
-                      _vm._v("Custom range")
+                      _vm._v("Rango personalizado")
                     ])
                   ],
                   2
@@ -87174,11 +87206,11 @@ var render = function() {
                     multiple: true
                   },
                   model: {
-                    value: _vm.selectedSpecialities,
+                    value: _vm.selectedDoctorSpecialities,
                     callback: function($$v) {
-                      _vm.selectedSpecialities = $$v
+                      _vm.selectedDoctorSpecialities = $$v
                     },
-                    expression: "selectedSpecialities"
+                    expression: "selectedDoctorSpecialities"
                   }
                 })
               ],
@@ -87214,11 +87246,40 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-6" })
+      _vm._m(0)
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6 p-0" }, [
+      _c("div", { staticClass: "table-responsive" }, [
+        _c(
+          "table",
+          { staticClass: "table card-table table-vcenter text-nowrap" },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c("th", { staticClass: "w-1" }, [_vm._v("No.")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Nombre")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Status")]),
+                _vm._v(" "),
+                _c("th")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tbody")
+          ]
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
