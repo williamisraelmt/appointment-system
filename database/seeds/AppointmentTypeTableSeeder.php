@@ -16,11 +16,12 @@ class AppointmentTypeTableSeeder extends Seeder
 
         $now = Carbon::now()->toDateTimeString();
 
-        AppointmentType::insert(
-            ['name' => 'Inicial', 'appointment_time' => '00:45:00', 'created_at' => $now],
-            ['name' => 'Entrega de resultados', 'appointment_time' => '00:20:00', 'created_at' => $now],
-            ['name' => 'Consulta', 'appointment_time' => '00:45:00', 'created_at' => $now],
-            ['name' => 'Cirugía', 'appointment_time' => '04:00:00', 'created_at' => $now]
+        AppointmentType::insert([
+                ['name' => 'Inicial', 'appointment_time' => '00:45:00', 'created_at' => $now],
+                ['name' => 'Entrega de resultados', 'appointment_time' => '00:20:00', 'created_at' => $now],
+                ['name' => 'Consulta', 'appointment_time' => '00:45:00', 'created_at' => $now],
+                ['name' => 'Cirugía', 'appointment_time' => '04:00:00', 'created_at' => $now]
+            ]
         );
     }
 }

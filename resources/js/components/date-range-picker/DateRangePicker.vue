@@ -24,7 +24,7 @@
       <div class="form-group">
         <select class="form-control form-control-sm" :class="compare ? 'daterangepicker-range-border' : ''" v-model="rangeSelect">
           <option v-for="(range, rangeKey) in ranges" :key="rangeKey" :value="rangeKey">{{ range.label }}</option>
-          <option value="custom">Custom range</option>
+          <option value="custom">Rango personalizado</option>
         </select>
       </div>
       <div class="form-group form-inline flex-nowrap">
@@ -72,24 +72,6 @@
             @keyup.enter="inputDate"
           >
         </div>
-      </div>
-      <div class="form-group">
-
-        <div class="custom-controls-stacked">
-          <label class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="option1">
-            <span class="custom-control-label">Día</span>
-          </label>
-          <label class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" name="example-checkbox2" value="option2">
-            <span class="custom-control-label">Tarde</span>
-          </label>
-          <label class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" name="example-checkbox3" value="option3">
-            <span class="custom-control-label">Noche</span>
-          </label>
-        </div>
-
       </div>
       <div class="form-group form-inline justify-content-end mb-0">
         <button type="button" class="btn btn-light" @click="cancel">Cancelar</button>
@@ -194,7 +176,7 @@ export default {
       for (const _rangeKey of Object.keys(this.ranges)) {
         const range = this.ranges[_rangeKey]
         if (rangeKey == _rangeKey) {
-          predefinedRange = true
+          predefinedRange = true;
 
           if (!this.startDate.isSame(range.startDate)) {
             this.startDate = moment.utc(range.startDate)
@@ -207,18 +189,18 @@ export default {
 
       // Custom range
       if (!predefinedRange && this.step == null) {
-        this.step = 'selectStartDate'
+        this.step = 'selectStartDate';
         this.$refs.startDate.focus()
       }
     },
     selectRangeCompare: function(rangeKey) {
-      let predefinedRange = false
+      let predefinedRange = false;
 
       // Predefined ranges
       for (const _rangeKey of Object.keys(this.ranges)) {
         const range = this.ranges[_rangeKey]
         if (rangeKey == _rangeKey) {
-          predefinedRange = true
+          predefinedRange = true;
 
           if (!this.startDateCompare.isSame(range.startDate)) {
             this.startDateCompare = moment.utc(range.startDate)
@@ -236,29 +218,29 @@ export default {
       }
     },
     selectDate: function(date) {
-      if (this.step == 'selectStartDate') {
+      if (this.step === 'selectStartDate') {
         this.startDate = date
-      } else if (this.step == 'selectEndDate') {
+      } else if (this.step === 'selectEndDate') {
         this.endDate = date
-      } else if (this.step == 'selectStartDateCompare') {
+      } else if (this.step === 'selectStartDateCompare') {
         this.startDateCompare = date
-      } else if (this.step == 'selectEndDateCompare') {
+      } else if (this.step === 'selectEndDateCompare') {
         this.endDateCompare = date
       }
     },
     // Step flow for date range selections
     nextStep: function() {
-      if (this.step == 'selectStartDate') {
+      if (this.step === 'selectStartDate') {
         this.step = 'selectEndDate'
         this.$refs.endDate.focus()
-      } else if (this.step == 'selectEndDate') {
+      } else if (this.step === 'selectEndDate') {
         this.step = null
         this.$refs.endDate.blur()
-      } else if (this.step == 'selectStartDateCompare') {
+      } else if (this.step === 'selectStartDateCompare') {
         this.step = 'selectEndDateCompare'
         this.$refs.endDateCompare.focus()
-      } else if (this.step == 'selectEndDateCompare') {
-        this.step = null
+      } else if (this.step === 'selectEndDateCompare') {
+        this.step = null;
         this.$refs.endDateCompare.blur()
       }
     },

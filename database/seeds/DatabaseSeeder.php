@@ -27,7 +27,6 @@ class DatabaseSeeder extends Seeder
                  CustomerTableSeeder::class,
 
                  AppointmentTableSeeder::class,
-
                  HolidayTableSeeder::class,
                  UserTableSeeder::class
              ]

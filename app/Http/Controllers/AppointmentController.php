@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\AppointmentType;
 use App\Models\Customer;
 use App\Models\Doctor;
 use App\Models\DoctorNonWorkingDay;
@@ -13,10 +14,14 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Nexmo\Call\Collection;
 
 class AppointmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,9 +37,37 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $appointment = $request->all();
+
+        try {
+
+            $saved_appointment = new Appointment();
+            $saved_appointment->scheduled_date = $appointment['scheduled_date'];
+            $saved_appointment->start_time = $appointment['start_time'];
+            $saved_appointment->end_time = Carbon::createFromTimeString($appointment['start_time'])->addSeconds($this->inSeconds($appointment['appointment_type']['appointment_time']));
+            $saved_appointment->customer_id = auth()->id();
+            $saved_appointment->appointment_type_id = $appointment['appointment_type']['id'];
+            $saved_appointment->doctor_id = $appointment['doctor_id'];
+
+            $saved_appointment->save();
+
+            $response = $saved_appointment;
+            $response_status = 200;
+
+        } catch (\Exception $e){
+
+            $response = [];
+            $error_message = $e->getMessage();
+            $response_status = 500;
+
+        }
+
+        return response()->json([
+            'payload' => $response,
+            'message' => $error_message ?? null,
+        ], $response_status);
     }
 
     /**
@@ -98,9 +131,9 @@ class AppointmentController extends Controller
                 $last_appointment['scheduled_dates'] = [$start_date->toDateString(), $end_date->toDateString()];
 
                 $availability = $this->getAvailableSchedules(
-                    $last_appointment['doctor_id'] ?? null,
+                    [$last_appointment['doctor_id'] ?? null],
                     null,
-                    $last_appointment['doctor_id'] ?? null,
+                    [],
                     $last_appointment['scheduled_dates'] ?? [],
                     $last_appointment['days_of_week'] ?? []
                 );
@@ -135,21 +168,31 @@ class AppointmentController extends Controller
     public function getAll(Request $request)
     {
 
-        $speciality_id = $request->get('speciality_id');
-        $gender = $request->get('gender');
-        $doctor_id = $request->get('doctor_id');
-        $dates = $request->get('appointment_dates') ?? [];
-        $days_of_week = $request->get('day_of_week') ?? [];
-        $excluded_dates = $request->get('excluded_dates') ?? [];
+        $specialities = json_decode($request->get('specialities')) ?? [];
+        $gender = json_decode($request->get('gender'));
+        $doctors = json_decode($request->get('doctors')) ?? [];
+        $dates = json_decode($request->get('appointment_dates')) ?? [];
+        $days_of_week = json_decode($request->get('days_of_week')) ?? [];
+        $excluded_dates = json_decode($request->get('excluded_dates')) ?? [];
+        $shifts = json_decode($request->get('shifts')) ?? [];
+        $appointment_type = json_decode($request->get('appointment_type')) ?? [];
 
         try {
+
             $availability = $this->getAvailableSchedules(
-                $doctor_id,
+                collect($doctors)
+                    ->map(function($doctor) { return $doctor->id; })->toArray(),
                 $gender,
-                $speciality_id,
+                collect($specialities)
+                    ->map(function($speciality) { return $speciality->id; })->toArray(),
                 $dates,
-                $days_of_week,
-                $excluded_dates
+                collect($days_of_week)
+                    ->filter(function($day_of_week) { return $day_of_week->selected === true ;})
+                    ->map(function($day_of_week){ return $day_of_week->value;
+                    })->toArray() ,
+                $excluded_dates,
+                $shifts,
+                $appointment_type
             );
 
             $response_status = 200;
@@ -169,34 +212,34 @@ class AppointmentController extends Controller
     }
 
     public function getAvailableSchedules(
-        $doctorId = null,
+        $doctorIds = [],
         $gender = null,
-        $specialityId = null,
+        $specialityIds = null,
         $dates = [],
         $daysOfWeek = [],
-        $excludedDates = [])
+        $excludedDates = [],
+        $shifts = [],
+        $appointment_type = null)
     {
 
         $availability = [];
 
         $doctors = Doctor::with('specialities', 'schedules');
 
-        if (isset($doctorId) && is_numeric($doctorId)) {
+        if (isset($doctorIds) && !empty($doctorIds)) {
 
-            $doctors = $doctors->where('id', '=', $doctorId);
+            $doctors = $doctors->whereIn('id', $doctorIds);
 
-        } else {
+        }
 
-            if (isset($gender) && is_numeric($gender)) {
-                $doctors = $doctors->where('gender', '=', $gender);
-            }
+        if (isset($gender) && is_numeric($gender)) {
+            $doctors = $doctors->where('gender', '=', $gender);
+        }
 
-            if (isset($specialityId) && is_numeric($specialityId)) {
-                $doctors = $doctors->whereHas('specialities', function (Builder $query) use ($specialityId) {
-                    $query->where('speciality_id', '=', $specialityId);
-                });
-            }
-
+        if (isset($specialityIds) && !empty($specialityIds)) {
+            $doctors = $doctors->whereHas('specialities', function (Builder $query) use ($specialityIds) {
+                $query->whereIn('speciality_id', $specialityIds);
+            });
         }
 
         if (!empty($dates)) {
@@ -300,7 +343,8 @@ class AppointmentController extends Controller
                         // Setting up the initial doctor's availability
                         $availability[$working_date][$doctor->id]['available_schedules'][] = [
                             'start_time' => $schedule->start_time,
-                            'end_time' => $schedule->end_time
+                            'end_time' => $schedule->end_time,
+                            'date' => $working_date
                         ];
 
                         // If there are no appointments, it's not necessary to search
@@ -325,7 +369,8 @@ class AppointmentController extends Controller
 
                             $availability[$working_date][$doctor->id]['busy_schedules'][] = [
                                 'start_time' => $appointment->start_time,
-                                'end_time' => $appointment->end_time
+                                'end_time' => $appointment->end_time,
+                                'date' => $working_date
                             ];
 
                             $start_time = $availability[$working_date][$doctor->id]['available_schedules'][$previous_time]['start_time'];
@@ -347,14 +392,16 @@ class AppointmentController extends Controller
 
                                 $availability[$working_date][$doctor->id]['available_schedules'][$previous_time] = [
                                     'start_time' => $doctor_start_time->toTimeString(),
-                                    'end_time' => $appointment_start_time->toTimeString()
+                                    'end_time' => $appointment_start_time->toTimeString(),
+                                    'date' => $working_date
                                 ];
 
                                 if ($doctor_end_time->diffInSeconds($appointment_end_time, true) > 1) {
 
                                     $availability[$working_date][$doctor->id]['available_schedules'][] = [
                                         'start_time' => $appointment_end_time->toTimeString(),
-                                        'end_time' => $doctor_end_time->toTimeString()
+                                        'end_time' => $doctor_end_time->toTimeString(),
+                                        'date' => $working_date
                                     ];
 
                                 }
@@ -367,7 +414,8 @@ class AppointmentController extends Controller
 
                                     $availability[$working_date][$doctor->id]['available_schedules'][$previous_time] = [
                                         'start_time' => $appointment_end_time->toTimeString(),
-                                        'end_time' => $doctor_end_time->toTimeString()
+                                        'end_time' => $doctor_end_time->toTimeString(),
+                                        'date' => $working_date
                                     ];
 
                                 }
@@ -382,10 +430,36 @@ class AppointmentController extends Controller
 
             });
 
+            if (isset($appointment_type)){
+
+                $appointment_time = $appointment_type->appointment_time ?? 0;
+
+                collect($availability)->each(function($doctors, $index) use (&$availability, $appointment_time) {
+
+                    collect($doctors)->each(function($doctor, $doctor_index) use ($index, $appointment_time, &$availability) {
+
+                        $availability[$index][$doctor_index]['available_schedules'] = collect($doctor['available_schedules'])->filter(function ($schedule) use ($appointment_time) {
+
+                            return $this->inSeconds($appointment_time) <= ($this->inSeconds($schedule['end_time']) - $this->inSeconds($schedule['start_time']));
+
+                        });
+
+                    });
+
+                });
+            }
+
+
         }
 
         return $availability;
 
+    }
+
+    public function inSeconds(string $time){
+         $time = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $time);
+         sscanf($time,"%d:%d:%d", $hours, $minutes, $seconds);
+         return ($hours * 3600) + ($minutes * 60) + ($seconds);
     }
 
     /**

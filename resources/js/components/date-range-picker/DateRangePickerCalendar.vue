@@ -127,7 +127,7 @@ export default {
 }
 
 .daterangepicker-range {
-  background-color: #17a2b8 !important;
+  background-color: #467fcf !important;
   color: #ffffff;
 }
 
