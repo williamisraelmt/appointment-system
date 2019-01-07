@@ -21,7 +21,7 @@ class CreateDoctorNonWorkingDaysTable extends Migration
 
         Schema::table('doctor_non_working_days', function (Blueprint $table){
             $table->unsignedInteger('doctor_id');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('doctor_id')->references('id')->on('third_parties');
         });
     }
 

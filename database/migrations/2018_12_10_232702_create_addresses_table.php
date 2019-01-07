@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateAddressesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,25 +12,28 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-
+        Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+
+            $table->string('address');
 
             $table->boolean('status')->nullable()->default(1);
 
-            $table->rememberToken();
+
             $table->timestamps();
         });
 
-        Schema::table('users', function(Blueprint $table){
+        Schema::table('addresses', function(Blueprint $table) {
 
             $table->unsignedInteger('third_party_id');
-            $table->foreign('third_party_id')->references('id')->on('third_parties');
-        });
 
+            $table->unsignedInteger('city_id');
+
+            $table->foreign('third_party_id')->references('id')->on('third_parties');
+
+            $table->foreign('city_id')->references('id')->on('cities');
+
+        });
     }
 
     /**
@@ -40,6 +43,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('addresses');
     }
 }

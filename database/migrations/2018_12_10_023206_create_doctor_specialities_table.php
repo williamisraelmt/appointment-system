@@ -21,7 +21,7 @@ class CreateDoctorSpecialitiesTable extends Migration
             $table->unsignedInteger('doctor_id');
             $table->unsignedInteger('speciality_id');
 
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('doctor_id')->references('id')->on('third_parties');
             $table->foreign('speciality_id')->references('id')->on('specialities');
         });
     }

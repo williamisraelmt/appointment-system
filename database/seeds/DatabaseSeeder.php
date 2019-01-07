@@ -18,17 +18,13 @@ class DatabaseSeeder extends Seeder
                  RoomTableSeeder::class,
 
                  AppointmentTypeTableSeeder::class,
-                 DoctorTableSeeder::class,
+                 UserTableSeeder::class,
                  DoctorSchedulesTableSeeder::class,
                  SpecialityTableSeeder::class,
                  DoctorNonWorkingDayTableSeeder::class,
                  DoctorSpecialityTableSeeder::class,
 
-                 CustomerTableSeeder::class,
-
-                 AppointmentTableSeeder::class,
                  HolidayTableSeeder::class,
-                 UserTableSeeder::class
              ]
          );
     }

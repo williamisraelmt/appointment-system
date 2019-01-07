@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomersTable extends Migration
+class CreateThirdPartiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,23 +12,20 @@ class CreateCustomersTable extends Migration
      */
     public function up()
     {
+        Schema::create('third_parties', function (Blueprint $table) {
 
-        Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('first_name');
-
-            $table->string('last_name');
-
-            $table->string('born_date')->nullable();
-
-            $table->string('identification_no')->unique();
-
+            $table->string('last_name')->nullable();
+            $table->string('identification_no')->nullable();
+            $table->enum('gender', ['m', 'f'])->default('m');
+            $table->enum('status', ['active', 'inactive']);
             $table->enum('blood_type', ['O+', 'O-', 'A+', 'A-', 'AB+', 'AB-', 'B+', 'B-']);
+            $table->boolean('removable')->default(1)->nullable();
 
-            $table->enum('gender', ['m', 'f']);
-
-            $table->boolean('status')->default(1)->nullable();
+            
+            $table->date('born_date')->nullable();
 
             $table->timestamps();
         });
@@ -41,6 +38,6 @@ class CreateCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('third_parties');
     }
 }

@@ -35,23 +35,23 @@
 
                                 </div>
 
-                                <div class="col-md-2 offset-lg-2">
+                                <!--<div class="col-md-2 offset-lg-2">-->
 
-                                    <div class="form-group" v-for="shift in shifts">
+                                    <!--<div class="form-group" v-for="shift in shifts">-->
 
-                                        <div class="custom-controls-stacked">
-                                            <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                       v-bind:name="shift.label" v-bind:id="shift.label"
-                                                       v-model="shift.selected">
-                                                <span class="custom-control-label" v-bind:for="shift.label"
-                                                      v-text="shift.label"></span>
-                                            </label>
-                                        </div>
+                                        <!--<div class="custom-controls-stacked">-->
+                                            <!--<label class="custom-control custom-checkbox">-->
+                                                <!--<input type="checkbox" class="custom-control-input"-->
+                                                       <!--v-bind:name="shift.label" v-bind:id="shift.label"-->
+                                                       <!--v-model="shift.selected">-->
+                                                <!--<span class="custom-control-label" v-bind:for="shift.label"-->
+                                                      <!--v-text="shift.label"></span>-->
+                                            <!--</label>-->
+                                        <!--</div>-->
 
-                                    </div>
+                                    <!--</div>-->
 
-                                </div>
+                                <!--</div>-->
 
                             </div>
                             <div class="row">
@@ -63,28 +63,12 @@
                                                      :closeOnSelect="false"></multiselect>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Especialidades</label>
-                                        <multiselect v-model="selectedDoctorSpecialities" :options="doctorSpecialities"
-                                                     label="name" v-bind:multiple="true" trackBy="id"
-                                                     :closeOnSelect="false"></multiselect>
-                                    </div>
-                                </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Tipo de cita</label>
                                         <multiselect v-model="selectedAppointmentType" :options="appointmentTypes"
                                                      label="name" v-bind:multiple="false" trackBy="id"></multiselect>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Sexo</label>
-                                        <multiselect v-model="selectedGender" :options="genders"
-                                                     label="name" v-bind:multiple="false" trackBy="value"></multiselect>
                                     </div>
                                 </div>
                             </div>
@@ -247,18 +231,6 @@
             'selected': true
         },
     ];
-
-    const genders = [
-        {
-            value: "m",
-            name: "Masculino"
-        },
-        {
-            value: "f",
-            name: "Femenino"
-        }
-    ];
-
     export default {
         name: "AppointmentComponent",
         components: {
@@ -283,7 +255,6 @@
                 selectedGender: {},
                 daysOfWeek: Object.assign([], daysOfWeek),
                 shifts: Object.assign([], shifts),
-                genders: Object.assign([], genders),
                 selectedAppointment : {
                     scheduled_date : '',
                     start_time: '',
@@ -318,9 +289,6 @@
                 this.getAvailableSchedules();
             },
             shifts: function () {
-                this.getAvailableSchedules();
-            },
-            selectedGender: function () {
                 this.getAvailableSchedules();
             },
         },
@@ -368,10 +336,6 @@
                 params += `&days_of_week=${JSON.stringify(daysOfWeek)}`;
                 params += `&shifts=${JSON.stringify(this.shifts)}`;
 
-                if (this.selectedGender['value']){
-                    params += `&gender=${this.selectedGender['value']}`;
-                }
-
                 axios.get(`/api/appointments/available-schedules${params}`).then(
                     (response) => {
                         this.availableSchedules = response.data.payload;
@@ -386,7 +350,11 @@
 
                 axios.post('/api/appointments', this.selectedAppointment).then(
                     (response) => {
-                        console.log(response.data);
+                        alert('La cita ha sido guardada satisfactoriamente!');
+                        this.getAvailableSchedules();
+                    },
+                    (error) => {
+                        alert('Hubo un problema al realizar la cita!!');
                     }
                 )
             },

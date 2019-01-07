@@ -29,8 +29,8 @@ class CreateAppointmentsTable extends Migration
             $table->unsignedInteger('doctor_id');
             $table->unsignedInteger('appointment_type_id');
 
-            $table->foreign('customer_id')->references('id')->on('customers');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('customer_id')->references('id')->on('third_parties');
+            $table->foreign('doctor_id')->references('id')->on('third_parties');
             $table->foreign('appointment_type_id')->references('id')->on('appointment_types');
 
         });

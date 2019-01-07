@@ -16,6 +16,7 @@ class CreateDoctorSchedulesTable extends Migration
             $table->increments('id');
             $table->time('start_time');
             $table->time('end_time');
+            $table->time('max_patients')->nullable();
             $table->integer('day_of_week');
             $table->timestamps();
         });
@@ -24,7 +25,7 @@ class CreateDoctorSchedulesTable extends Migration
 
             $table->unsignedInteger('doctor_id');
             $table->unsignedInteger('room_id');
-            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('doctor_id')->references('id')->on('third_parties');
             $table->foreign('room_id')->references('id')->on('rooms');
 
         });

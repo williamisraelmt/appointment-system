@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\AppointmentType;
-use App\Models\Customer;
-use App\Models\Doctor;
 use App\Models\DoctorNonWorkingDay;
 use App\Models\DoctorSchedule;
 use App\Models\Holiday;
+use App\Models\ThirdParty;
 use Carbon\CarbonPeriod;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -169,7 +168,7 @@ class AppointmentController extends Controller
     {
 
         $specialities = json_decode($request->get('specialities')) ?? [];
-        $gender = json_decode($request->get('gender'));
+        $gender = $request->get('gender');
         $doctors = json_decode($request->get('doctors')) ?? [];
         $dates = json_decode($request->get('appointment_dates')) ?? [];
         $days_of_week = json_decode($request->get('days_of_week')) ?? [];
@@ -218,13 +217,12 @@ class AppointmentController extends Controller
         $dates = [],
         $daysOfWeek = [],
         $excludedDates = [],
-        $shifts = [],
-        $appointment_type = null)
+        $appointmentType = null)
     {
 
         $availability = [];
 
-        $doctors = Doctor::with('specialities', 'schedules');
+        $doctors = ThirdParty::doctors()->with('specialities', 'schedules');
 
         if (isset($doctorIds) && !empty($doctorIds)) {
 
@@ -232,7 +230,7 @@ class AppointmentController extends Controller
 
         }
 
-        if (isset($gender) && is_numeric($gender)) {
+        if (isset($gender) && !empty($gender)) {
             $doctors = $doctors->where('gender', '=', $gender);
         }
 
@@ -280,7 +278,7 @@ class AppointmentController extends Controller
         // If there are no available dates it is not necessary to look for doctors.
         if ($date_ranges->isNotEmpty()) {
 
-            collect($doctors->get())->each(function (Doctor $doctor) use (
+            collect($doctors->get())->each(function (ThirdParty $doctor) use (
                 $date_ranges,
                 &$availability
             ) {
@@ -314,15 +312,10 @@ class AppointmentController extends Controller
 
                 collect($doctor_working_dates)->each(function ($working_date) use (&$availability, $doctor) {
 
-                    $appointments = Appointment::where([
-                        ['doctor_id', '=', $doctor->id],
-                        ['scheduled_date', '=', $working_date]
-                    ])->get();
-
                     $schedules = DoctorSchedule::where([
                         ['doctor_id', '=', $doctor->id],
                         ['day_of_week', '=', Carbon::createFromFormat('Y-m-d', $working_date)->format('w')]
-                    ])->get();
+                    ])/*->orderBy('start_time', 'desc')*/->get();
 
                     $availability[$working_date][$doctor->id] = [
                         'id' => $doctor->id,
@@ -333,10 +326,17 @@ class AppointmentController extends Controller
 
                     $schedules->each(function (DoctorSchedule $schedule) use (
                         $doctor,
-                        $appointments,
                         &$availability,
                         $working_date
                     ) {
+
+                        $appointments = Appointment::where([
+                            ['doctor_id', '=', $doctor->id],
+                            ['scheduled_date', '=', $working_date]/*,
+                            ['start_time', '>=', $schedule->start_time],
+                             ['end_time', '<=', $schedule->end_time]*/
+                                ]
+                            )/*->orderBy('start_time', 'desc')*/->get();
 
                         $schedule_arr = $schedule->toArray();
 
@@ -396,7 +396,7 @@ class AppointmentController extends Controller
                                     'date' => $working_date
                                 ];
 
-                                if ($doctor_end_time->diffInSeconds($appointment_end_time, true) > 1) {
+                                if ($doctor_end_time->diffInSeconds($appointment_end_time, true) > 0) {
 
                                     $availability[$working_date][$doctor->id]['available_schedules'][] = [
                                         'start_time' => $appointment_end_time->toTimeString(),
@@ -410,7 +410,7 @@ class AppointmentController extends Controller
 
                             } else {
 
-                                if ($doctor_end_time->diffInSeconds($appointment_end_time, true) > 1) {
+                                if ($doctor_end_time->diffInSeconds($appointment_end_time, true) > 0) {
 
                                     $availability[$working_date][$doctor->id]['available_schedules'][$previous_time] = [
                                         'start_time' => $appointment_end_time->toTimeString(),
@@ -430,9 +430,9 @@ class AppointmentController extends Controller
 
             });
 
-            if (isset($appointment_type)){
+            if (isset($appointmentType) && !empty($appointmentType)){
 
-                $appointment_time = $appointment_type->appointment_time ?? 0;
+                $appointment_time = $appointmentType->appointment_time ?? 0;
 
                 collect($availability)->each(function($doctors, $index) use (&$availability, $appointment_time) {
 
