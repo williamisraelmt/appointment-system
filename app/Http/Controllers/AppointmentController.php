@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
-use App\Models\AppointmentType;
-use App\Models\DoctorNonWorkingDay;
 use App\Models\DoctorSchedule;
 use App\Models\Holiday;
 use App\Models\ThirdParty;
 use Carbon\CarbonPeriod;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -55,7 +52,7 @@ class AppointmentController extends Controller
             $response = $saved_appointment;
             $response_status = 200;
 
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
 
             $response = [];
             $error_message = $e->getMessage();
@@ -119,7 +116,7 @@ class AppointmentController extends Controller
             $start_date = Carbon::tomorrow();
             $end_date = Carbon::tomorrow()->addDays(7);
 
-            if ($last_appointment['scheduled_date']){
+            if ($last_appointment['scheduled_date']) {
 
                 $last_appointment['days_of_week'] = [Carbon::createFromFormat('Y-m-d', $last_appointment['scheduled_date'])->format('w')];
 
@@ -137,12 +134,12 @@ class AppointmentController extends Controller
                     $last_appointment['days_of_week'] ?? []
                 );
 
-                if (empty($availability)){
+                if (empty($availability)) {
                     $start_date = $start_date->addDays(8);
                     $end_date = $end_date->addDays(8);
                 }
 
-                $retries+= 1;
+                $retries += 1;
 
             } while (empty($availability) && $retries < 4);
 
@@ -168,30 +165,31 @@ class AppointmentController extends Controller
     {
 
         $specialities = json_decode($request->get('specialities')) ?? [];
-        $gender = $request->get('gender');
         $doctors = json_decode($request->get('doctors')) ?? [];
         $dates = json_decode($request->get('appointment_dates')) ?? [];
         $days_of_week = json_decode($request->get('days_of_week')) ?? [];
         $excluded_dates = json_decode($request->get('excluded_dates')) ?? [];
-        $shifts = json_decode($request->get('shifts')) ?? [];
-        $appointment_type = json_decode($request->get('appointment_type')) ?? [];
 
         try {
 
             $availability = $this->getAvailableSchedules(
                 collect($doctors)
-                    ->map(function($doctor) { return $doctor->id; })->toArray(),
-                $gender,
+                    ->map(function ($doctor) {
+                        return $doctor->id;
+                    })->toArray(),
                 collect($specialities)
-                    ->map(function($speciality) { return $speciality->id; })->toArray(),
+                    ->map(function ($speciality) {
+                        return $speciality->id;
+                    })->toArray(),
                 $dates,
                 collect($days_of_week)
-                    ->filter(function($day_of_week) { return $day_of_week->selected === true ;})
-                    ->map(function($day_of_week){ return $day_of_week->value;
-                    })->toArray() ,
-                $excluded_dates,
-                $shifts,
-                $appointment_type
+                    ->filter(function ($day_of_week) {
+                        return $day_of_week->selected === true;
+                    })
+                    ->map(function ($day_of_week) {
+                        return $day_of_week->value;
+                    })->toArray(),
+                $excluded_dates
             );
 
             $response_status = 200;
@@ -212,17 +210,15 @@ class AppointmentController extends Controller
 
     public function getAvailableSchedules(
         $doctorIds = [],
-        $gender = null,
         $specialityIds = null,
         $dates = [],
         $daysOfWeek = [],
-        $excludedDates = [],
-        $appointmentType = null)
+        $excludedDates = [])
     {
 
         $availability = [];
 
-        $doctors = ThirdParty::doctors()->with('specialities', 'schedules');
+        $doctors = ThirdParty::doctors()->with('specialities', 'schedules', 'nonWorkingDays');
 
         if (isset($doctorIds) && !empty($doctorIds)) {
 
@@ -314,140 +310,23 @@ class AppointmentController extends Controller
 
                     $schedules = DoctorSchedule::where([
                         ['doctor_id', '=', $doctor->id],
-                        ['day_of_week', '=', Carbon::createFromFormat('Y-m-d', $working_date)->format('w')]
-                    ])/*->orderBy('start_time', 'desc')*/->get();
+                        ['day_of_week', '=', Carbon::createFromFormat('Y-m-d', $working_date)->format('w')],
+                        ['max_patients', '>', Appointment::where([
+                            ['doctor_id', '=', $doctor->id]
+                        ])->whereRaw("DAYOFWEEK(scheduled_date) = " . Carbon::createFromFormat('Y-m-d', $working_date)->format('w'))->count()]
+                    ])->get();
 
                     $availability[$working_date][$doctor->id] = [
                         'id' => $doctor->id,
                         'first_name' => $doctor->first_name,
                         'last_name' => $doctor->last_name,
-                        'gender' => $doctor->gender
+                        'gender' => $doctor->gender,
+                        'available_schedules' => $schedules->toArray()
                     ];
-
-                    $schedules->each(function (DoctorSchedule $schedule) use (
-                        $doctor,
-                        &$availability,
-                        $working_date
-                    ) {
-
-                        $appointments = Appointment::where([
-                            ['doctor_id', '=', $doctor->id],
-                            ['scheduled_date', '=', $working_date]/*,
-                            ['start_time', '>=', $schedule->start_time],
-                             ['end_time', '<=', $schedule->end_time]*/
-                                ]
-                            )/*->orderBy('start_time', 'desc')*/->get();
-
-                        $schedule_arr = $schedule->toArray();
-
-                        // Setting up the initial doctor's availability
-                        $availability[$working_date][$doctor->id]['available_schedules'][] = [
-                            'start_time' => $schedule->start_time,
-                            'end_time' => $schedule->end_time,
-                            'date' => $working_date
-                        ];
-
-                        // If there are no appointments, it's not necessary to search
-                        if ($appointments->isEmpty()) {
-                            return;
-                        }
-
-                        $previous_time = 0;
-
-                        // Checking availability after appointments
-                        $appointments->each(function (Appointment $appointment) use (
-                            $doctor,
-                            &$availability,
-                            &$schedule_arr,
-                            $working_date,
-                            &$previous_time
-                        ) {
-
-                            if ($appointment->status == 'canceled') {
-                                return;
-                            }
-
-                            $availability[$working_date][$doctor->id]['busy_schedules'][] = [
-                                'start_time' => $appointment->start_time,
-                                'end_time' => $appointment->end_time,
-                                'date' => $working_date
-                            ];
-
-                            $start_time = $availability[$working_date][$doctor->id]['available_schedules'][$previous_time]['start_time'];
-                            $doctor_start_time = Carbon::createFromFormat('H:i:s', $start_time);
-
-                            $end_time = $availability[$working_date][$doctor->id]['available_schedules'][$previous_time]['end_time'];
-                            $doctor_end_time = Carbon::createFromFormat('H:i:s', $end_time);
-
-                            $appointment_start_time = Carbon::createFromFormat('H:i:s', $appointment->start_time);
-                            $appointment_end_time = Carbon::createFromFormat('H:i:s', $appointment->end_time);
-
-                            if ($doctor_start_time->toTimeString() === $appointment_start_time->toTimeString() &&
-                                $doctor_end_time->toTimeString() === $appointment_end_time->toTimeString()) {
-                                $availability = [];
-                                return;
-                            }
-
-                            if ($appointment_start_time->toTimeString() != $doctor_start_time->toTimeString()) {
-
-                                $availability[$working_date][$doctor->id]['available_schedules'][$previous_time] = [
-                                    'start_time' => $doctor_start_time->toTimeString(),
-                                    'end_time' => $appointment_start_time->toTimeString(),
-                                    'date' => $working_date
-                                ];
-
-                                if ($doctor_end_time->diffInSeconds($appointment_end_time, true) > 0) {
-
-                                    $availability[$working_date][$doctor->id]['available_schedules'][] = [
-                                        'start_time' => $appointment_end_time->toTimeString(),
-                                        'end_time' => $doctor_end_time->toTimeString(),
-                                        'date' => $working_date
-                                    ];
-
-                                }
-
-                                $previous_time += 1;
-
-                            } else {
-
-                                if ($doctor_end_time->diffInSeconds($appointment_end_time, true) > 0) {
-
-                                    $availability[$working_date][$doctor->id]['available_schedules'][$previous_time] = [
-                                        'start_time' => $appointment_end_time->toTimeString(),
-                                        'end_time' => $doctor_end_time->toTimeString(),
-                                        'date' => $working_date
-                                    ];
-
-                                }
-
-                            }
-
-                        });
-
-                    });
 
                 });
 
             });
-
-            if (isset($appointmentType) && !empty($appointmentType)){
-
-                $appointment_time = $appointmentType->appointment_time ?? 0;
-
-                collect($availability)->each(function($doctors, $index) use (&$availability, $appointment_time) {
-
-                    collect($doctors)->each(function($doctor, $doctor_index) use ($index, $appointment_time, &$availability) {
-
-                        $availability[$index][$doctor_index]['available_schedules'] = collect($doctor['available_schedules'])->filter(function ($schedule) use ($appointment_time) {
-
-                            return $this->inSeconds($appointment_time) <= ($this->inSeconds($schedule['end_time']) - $this->inSeconds($schedule['start_time']));
-
-                        });
-
-                    });
-
-                });
-            }
 
 
         }
@@ -456,10 +335,11 @@ class AppointmentController extends Controller
 
     }
 
-    public function inSeconds(string $time){
-         $time = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $time);
-         sscanf($time,"%d:%d:%d", $hours, $minutes, $seconds);
-         return ($hours * 3600) + ($minutes * 60) + ($seconds);
+    public function inSeconds(string $time)
+    {
+        $time = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $time);
+        sscanf($time, "%d:%d:%d", $hours, $minutes, $seconds);
+        return ($hours * 3600) + ($minutes * 60) + ($seconds);
     }
 
     /**

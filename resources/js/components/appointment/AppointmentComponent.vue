@@ -98,11 +98,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <template v-for="dateInfo in availableSchedules">
+                                    <template v-for="(dateInfo, date) in availableSchedules">
                                         <template v-for="doctorInfo in dateInfo">
                                             <tr v-for="availableSchedule in doctorInfo.available_schedules">
                                                 <td><a href="">{{doctorInfo['first_name']}} {{doctorInfo['last_name']}}</a></td>
-                                                <td>{{availableSchedule['date']}}</td>
+                                                <td>{{date}}</td>
                                                 <td>{{availableSchedule['start_time']}}</td>
                                                 <td>{{availableSchedule['end_time']}}</td>
                                                 <td><button class="btn btn-secondary btn-sm" @click="onMakeAppointmentClick(dateInfo, doctorInfo, availableSchedule)">Realizar cita</button></td>

@@ -29,11 +29,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DoctorSchedule whereUpdatedAt($value)
  * @property-read \App\Models\Doctor $doctor
  * @property-read \App\Models\Room $room
+ * @property string|null $max_patients
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DoctorSchedule whereMaxPatients($value)
  */
 class DoctorSchedule extends Model
 {
     public function doctor(){
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo(ThirdParty::class);
     }
 
     public function room(){

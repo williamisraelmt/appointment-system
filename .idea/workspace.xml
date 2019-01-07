@@ -2,27 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eed76f4e-4a74-45af-83cd-642f714baff5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/appointment-system.iml" afterPath="$PROJECT_DIR$/.idea/appointment-system.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Customer.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Doctor.php" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CenterController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/CenterController.php" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DoctorController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/DoctorController.php" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DoctorSpecialityController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/DoctorSpecialityController.php" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Address.php" afterPath="$PROJECT_DIR$/app/Models/Address.php" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Appointment.php" afterPath="$PROJECT_DIR$/app/Models/Appointment.php" />
+      <change beforePath="$PROJECT_DIR$/app/Models/DoctorSchedule.php" afterPath="$PROJECT_DIR$/app/Models/DoctorSchedule.php" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Email.php" afterPath="$PROJECT_DIR$/app/Models/Email.php" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Phone.php" afterPath="$PROJECT_DIR$/app/Models/Phone.php" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ThirdParty.php" afterPath="$PROJECT_DIR$/app/Models/ThirdParty.php" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" afterPath="$PROJECT_DIR$/app/Models/User.php" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2018_12_10_022947_create_customers_table.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2018_12_10_023000_create_doctors_table.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2018_12_10_023004_create_doctor_schedules_table.php" afterPath="$PROJECT_DIR$/database/migrations/2018_12_10_023004_create_doctor_schedules_table.php" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2018_12_10_023011_create_doctor_non_working_days_table.php" afterPath="$PROJECT_DIR$/database/migrations/2018_12_10_023011_create_doctor_non_working_days_table.php" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2018_12_10_023024_create_appointments_table.php" afterPath="$PROJECT_DIR$/database/migrations/2018_12_10_023024_create_appointments_table.php" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2018_12_10_023206_create_doctor_specialities_table.php" afterPath="$PROJECT_DIR$/database/migrations/2018_12_10_023206_create_doctor_specialities_table.php" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/AppointmentTableSeeder.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/CustomerTableSeeder.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DoctorSchedulesTableSeeder.php" afterPath="$PROJECT_DIR$/database/seeds/DoctorSchedulesTableSeeder.php" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DoctorSpecialityTableSeeder.php" afterPath="$PROJECT_DIR$/database/seeds/DoctorSpecialityTableSeeder.php" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DoctorTableSeeder.php" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/appointment/AppointmentComponent.vue" afterPath="$PROJECT_DIR$/resources/js/components/appointment/AppointmentComponent.vue" />
     </list>
@@ -103,66 +94,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ThirdParty.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AppointmentComponent.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/js/components/appointment/AppointmentComponent.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1921">
+              <caret line="113" column="34" lean-forward="false" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="34" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThirdParty.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Models/ThirdParty.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="84" column="51" lean-forward="false" selection-start-line="84" selection-start-column="51" selection-end-line="84" selection-end-column="51" />
+            <state relative-caret-position="1547">
+              <caret line="92" column="34" lean-forward="false" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Email.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Models/Email.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="27" column="6" lean-forward="false" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppointmentController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="313" column="43" lean-forward="false" selection-start-line="313" selection-start-column="42" selection-end-line="313" selection-end-column="43" />
               <folding>
-                <element signature="e#30#69#0#PHP" expanded="true" />
+                <element signature="e#40#67#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2018_12_10_023206_create_doctor_specialities_table.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_10_023206_create_doctor_specialities_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AppointmentTypeTableSeeder.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/seeds/AppointmentTypeTableSeeder.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DoctorSpecialityTableSeeder.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/seeds/DoctorSpecialityTableSeeder.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="17" column="51" lean-forward="false" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserTableSeeder.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/seeds/UserTableSeeder.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="64" column="46" lean-forward="false" selection-start-line="64" selection-start-column="46" selection-end-line="64" selection-end-column="46" />
-              <folding>
-                <element signature="e#7#33#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2013_12_11_221259_create_third_party_third_party_types_table.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2013_12_11_221259_create_third_party_third_party_types_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="18" column="82" lean-forward="false" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="82" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -198,7 +169,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/database/seeds/RoomTableSeeder.php" />
         <option value="$PROJECT_DIR$/database/seeds/DoctorTableSeeder.php" />
         <option value="$PROJECT_DIR$/database/seeds/SpecialityTableSeeder.php" />
         <option value="$PROJECT_DIR$/database/migrations/2018_12_10_022947_create_customers_table.php" />
@@ -207,20 +177,16 @@
         <option value="$PROJECT_DIR$/database/seeds/DoctorNonWorkingDayTableSeeder.php" />
         <option value="$PROJECT_DIR$/database/seeds/HolidayTableSeeder.php" />
         <option value="$PROJECT_DIR$/database/seeds/CustomerTableSeeder.php" />
-        <option value="$PROJECT_DIR$/app/Models/DoctorSchedule.php" />
         <option value="$PROJECT_DIR$/app/Models/Room.php" />
         <option value="$PROJECT_DIR$/app/Models/Building.php" />
         <option value="$PROJECT_DIR$/app/Models/Doctor.php" />
         <option value="$PROJECT_DIR$/app/Models/Customer.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/app/Models/Appointment.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/DoctorSpecialityController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/SpecialityController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/DoctorController.php" />
         <option value="$PROJECT_DIR$/resources/views/modules/appointment.blade.php" />
         <option value="$PROJECT_DIR$/resources/sass/app.scss" />
         <option value="$PROJECT_DIR$/resources/js/components/date-range-picker/DateRangePicker.vue" />
@@ -238,7 +204,6 @@
         <option value="$PROJECT_DIR$/config/auth.php" />
         <option value="$PROJECT_DIR$/app/Http/Kernel.php" />
         <option value="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" />
-        <option value="$PROJECT_DIR$/resources/js/components/appointment/AppointmentComponent.vue" />
         <option value="$PROJECT_DIR$/database/migrations/2018_12_10_023011_create_doctor_non_working_days_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2018_12_10_023004_create_doctor_schedules_table.php" />
         <option value="$PROJECT_DIR$/database/seeds/DoctorSchedulesTableSeeder.php" />
@@ -247,8 +212,14 @@
         <option value="$PROJECT_DIR$/database/migrations/2018_12_10_023206_create_doctor_specialities_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2013_12_11_221259_create_third_party_third_party_types_table.php" />
         <option value="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/DoctorSpecialityController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/CenterController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/DoctorController.php" />
+        <option value="$PROJECT_DIR$/app/Models/Appointment.php" />
+        <option value="$PROJECT_DIR$/app/Models/DoctorSchedule.php" />
         <option value="$PROJECT_DIR$/app/Models/ThirdParty.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/appointment/AppointmentComponent.vue" />
       </list>
     </option>
   </component>
@@ -375,10 +346,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1466" />
-    <option name="y" value="39" />
-    <option name="width" value="1364" />
-    <option name="height" value="581" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -413,25 +384,28 @@
             <path>
               <item name="appointment-system" type="b2602c69:ProjectViewProjectNode" />
               <item name="appointment-system" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Models" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="appointment-system" type="b2602c69:ProjectViewProjectNode" />
               <item name="appointment-system" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="database" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="appointment-system" type="b2602c69:ProjectViewProjectNode" />
               <item name="appointment-system" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="database" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="migrations" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="components" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="appointment-system" type="b2602c69:ProjectViewProjectNode" />
               <item name="appointment-system" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="database" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="seeds" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="components" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="appointment" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -493,12 +467,13 @@
       <workItem from="1545092206491" duration="293000" />
       <workItem from="1545227345107" duration="25171000" />
       <workItem from="1545602434823" duration="81000" />
-      <workItem from="1546817111818" duration="4875000" />
+      <workItem from="1546817111818" duration="7730000" />
+      <workItem from="1546898635841" duration="6000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99465000" />
+    <option name="totallyTimeSpent" value="102326000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -510,22 +485,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34188035" sideWeight="0.5060514" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2769231" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2769231" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4381271" sideWeight="0.49394855" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13504274" sideWeight="0.49394855" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22334754" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.016641453" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -548,50 +522,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="224" column="44" lean-forward="true" selection-start-line="224" selection-start-column="44" selection-end-line="224" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/sass/app.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="763">
-          <caret line="66" column="1" lean-forward="false" selection-start-line="66" selection-start-column="1" selection-end-line="66" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Collection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="494" column="38" lean-forward="false" selection-start-line="494" selection-start-column="26" selection-end-line="494" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/appointment/CompleteAppointment.vue" />
-    <entry file="file://$PROJECT_DIR$/node_modules/vue-sweetalert2/src/index.d.ts" />
-    <entry file="file://$PROJECT_DIR$/database/seeds/CenterTableSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/bootstrap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="35" column="73" lean-forward="true" selection-start-line="35" selection-start-column="73" selection-end-line="35" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -673,31 +603,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="918">
           <caret line="54" column="54" lean-forward="false" selection-start-line="54" selection-start-column="54" selection-end-line="54" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/appointment/AppointmentComponent.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-442">
-          <caret line="73" column="34" lean-forward="false" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/DoctorTableSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="17" column="38" lean-forward="false" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/database/seeds/DoctorTableSeeder.php" />
     <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_10_232702_create_addresses_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -705,7 +618,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -713,15 +625,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_10_023011_create_doctor_non_working_days_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" column="77" lean-forward="false" selection-start-line="23" selection-start-column="77" selection-end-line="23" selection-end-column="77" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -729,7 +632,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -737,7 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -745,7 +646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-31">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -753,7 +653,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -761,7 +660,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -769,7 +667,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -777,31 +674,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="14" column="41" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/AppointmentTableSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="40" column="11" lean-forward="true" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/CustomerTableSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/database/seeds/AppointmentTableSeeder.php" />
+    <entry file="file://$PROJECT_DIR$/database/seeds/CustomerTableSeeder.php" />
     <entry file="file://$PROJECT_DIR$/database/seeds/DoctorNonWorkingDayTableSeeder.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -809,7 +690,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="28" column="49" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -817,7 +697,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="28" column="33" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -825,7 +704,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-306">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -833,9 +711,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-527">
           <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-          <folding>
-            <element signature="e#7#33#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -843,15 +718,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="17" column="51" lean-forward="false" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_10_023206_create_doctor_specialities_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -859,7 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -867,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="18" column="82" lean-forward="false" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="82" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -875,7 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="26" column="6" lean-forward="false" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -883,25 +746,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="64" column="46" lean-forward="false" selection-start-line="64" selection-start-column="46" selection-end-line="64" selection-end-column="46" />
-          <folding>
-            <element signature="e#7#33#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_10_023000_create_doctors_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_10_023000_create_doctors_table.php" />
     <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_10_023004_create_doctor_schedules_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-65">
           <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -909,26 +761,104 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
           <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_10_023206_create_doctor_specialities_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="284" column="0" lean-forward="true" selection-start-line="284" selection-start-column="0" selection-end-line="284" selection-end-column="0" />
-          <folding>
-            <element signature="e#40#67#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Appointment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-414">
+          <caret line="33" column="48" lean-forward="true" selection-start-line="33" selection-start-column="48" selection-end-line="33" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AppointmentTypeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CenterController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2018_12_10_023011_create_doctor_non_working_days_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="25" column="5" lean-forward="false" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/DoctorSpeciality.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="24" column="6" lean-forward="false" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/DoctorSchedule.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="33" column="3" lean-forward="false" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DoctorController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="53" lean-forward="true" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DoctorSpecialityController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="50" column="7" lean-forward="true" selection-start-line="50" selection-start-column="7" selection-end-line="53" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Email.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="6" lean-forward="false" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/ThirdParty.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="84" column="51" lean-forward="false" selection-start-line="84" selection-start-column="51" selection-end-line="84" selection-end-column="51" />
+        <state relative-caret-position="1547">
+          <caret line="92" column="34" lean-forward="false" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/appointment/AppointmentComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1921">
+          <caret line="113" column="34" lean-forward="false" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="34" />
           <folding>
-            <element signature="e#30#69#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="313" column="43" lean-forward="false" selection-start-line="313" selection-start-column="42" selection-end-line="313" selection-end-column="43" />
+          <folding>
+            <element signature="e#40#67#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

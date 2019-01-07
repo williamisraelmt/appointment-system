@@ -37,6 +37,12 @@ use Illuminate\Database\Eloquent\Builder;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Email[] $emails
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Phone[] $phones
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ThirdParty whereGender($value)
+ * @property string $blood_type
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Appointment[] $appointments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DoctorSchedule[] $schedules
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DoctorSpeciality[] $specialities
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ThirdPartyType[] $thirdPartyThirdPartyTypes
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ThirdParty whereBloodType($value)
  */
 class ThirdParty extends Model
 {
@@ -69,46 +75,54 @@ class ThirdParty extends Model
         return $this->hasMany(Address::class);
     }
 
-    public function specialities(){
-        return $this->hasMany(DoctorSpeciality::class);
+    public function specialities()
+    {
+        return $this->hasMany(DoctorSpeciality::class, 'doctor_id');
     }
 
-    public function schedules(){
-        return $this->hasMany(DoctorSchedule::class);
+    public function schedules()
+    {
+        return $this->hasMany(DoctorSchedule::class, 'doctor_id');
     }
 
-    public function appointments(){
-        return $this->hasMany(Appointment::class);
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id');
     }
 
-    public function nonWorkingDays(){
-        return $this->hasMany(DoctorNonWorkingDay::class)->get(['non_working_date'])->values();
+    public function nonWorkingDays()
+    {
+        return $this->hasMany(DoctorNonWorkingDay::class, 'doctor_id');
     }
 
-    public function thirdPartyThirdPartyTypes(){
+    public function thirdPartyThirdPartyTypes()
+    {
         return $this->belongsToMany(ThirdPartyType::class, 'third_party_third_party_types');
     }
 
-    public static function doctors(){
+    public static function doctors()
+    {
         return self::whereHas('thirdPartyThirdPartyTypes', function (Builder $query) {
-            $query->whereIn('third_party_id', 3);
+            $query->where('third_party_type_id', 3);
         });
     }
 
-    public static function patients(){
+    public static function patients()
+    {
         return self::whereHas('thirdPartyThirdPartyTypes', function (Builder $query) {
-            $query->whereIn('third_party_id', 1);
+            $query->where('third_party_type_id', 1);
         });
     }
 
-    public static function withRelations($params){
+    public static function withRelations($params)
+    {
         $persons = self::with('addresses', 'emails', 'phones');
 
-        if (isset($params['status'])){
+        if (isset($params['status'])) {
             $persons = $persons->where('status', '=', $params['status']);
         }
 
-        if (isset($params['search_input']) && $params['search_input'] !== ""){
+        if (isset($params['search_input']) && $params['search_input'] !== "") {
 
             $persons = $persons
                 ->where('first_name', 'like', "%{$params['search_input']}%")

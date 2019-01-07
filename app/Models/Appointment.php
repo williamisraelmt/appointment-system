@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Customer $customer
  * @property-read \App\Models\Appointment $doctor
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Appointment whereStatus($value)
+ * @property int $appointment_type_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Appointment whereAppointmentTypeId($value)
  */
 class Appointment extends Model
 {
@@ -42,7 +44,7 @@ class Appointment extends Model
     }
 
     public function customer(){
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(ThirdParty::class);
     }
 
     public static function lastAppointment($customerId, $doctorId = null, $specialityId = null){
@@ -56,7 +58,7 @@ class Appointment extends Model
         if (isset($specialityId) && $specialityId !== ""){
             $appointment = $appointment->whereHas('doctor', function(Builder $query) use ($specialityId){
 
-                $doctors_list = Doctor::whereHas('specialities', function(Builder $query) use ($specialityId){
+                $doctors_list = ThirdParty::whereHas('specialities', function(Builder $query) use ($specialityId){
                     return $query->where('speciality_id', '=', $specialityId);
                 })->get(['id'])->map(function($row) {
                     return $row['id'];

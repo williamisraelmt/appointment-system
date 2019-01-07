@@ -68958,7 +68958,10 @@ var render = function() {
                         _c(
                           "tbody",
                           [
-                            _vm._l(_vm.availableSchedules, function(dateInfo) {
+                            _vm._l(_vm.availableSchedules, function(
+                              dateInfo,
+                              date
+                            ) {
                               return [
                                 _vm._l(dateInfo, function(doctorInfo) {
                                   return _vm._l(
@@ -68975,11 +68978,7 @@ var render = function() {
                                           ])
                                         ]),
                                         _vm._v(" "),
-                                        _c("td", [
-                                          _vm._v(
-                                            _vm._s(availableSchedule["date"])
-                                          )
-                                        ]),
+                                        _c("td", [_vm._v(_vm._s(date))]),
                                         _vm._v(" "),
                                         _c("td", [
                                           _vm._v(
